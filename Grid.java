@@ -37,14 +37,25 @@ public class Grid {
         mtRow = row;
         mtColumn = column;
 
+        //remove previous F
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                if (board[i][j].getName().equals("F")) {
+                    board[i][j].setAsOpen();
+                }
+
+            }
+
+        }
+
         board[mtRow][mtColumn].setIsOccupied("F");
         mtLocation();
 
     }
-    
-    public void mtLocation(){
-		System.out.println("\nThe mountain is in row " +mtRow+ " column "+ mtColumn);
-	}
+
+    public void mtLocation() {
+        System.out.println("\nThe mountain has moved to row " + mtColumn + " column " + mtRow);
+    }
 
     public void setCarrot(int row, int column) {
 
@@ -64,11 +75,11 @@ public class Grid {
         return winner;
 
     }
-    
-    public String displayWinner(){
-		
-		return board[mtRow][mtColumn].getName();
-	}
+
+    public String displayWinner() {
+
+        return board[mtRow][mtColumn].getName();
+    }
     //call to see current content of grid 
 
     public void printGrid() {

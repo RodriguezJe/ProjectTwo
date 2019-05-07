@@ -10,8 +10,7 @@ public class CreateThreads implements Runnable {
     private String threadName;
     private Thread t;
     private boolean isWinner;
-    private int previousRow;
-    private int previousColumn;
+    private boolean hasCarrot;
 
     //constructor 
     public CreateThreads(String name) {
@@ -24,10 +23,6 @@ public class CreateThreads implements Runnable {
         try {
 
             Random nums = new Random();
-            previousRow = nums.nextInt(9);
-            previousColumn = nums.nextInt(9);
-
-            System.out.println(threadName + " moves to Row: " + previousRow + " Column: " + previousColumn);
 
             System.out.println("Thread " + threadName + " exiting");
 
@@ -61,26 +56,13 @@ public class CreateThreads implements Runnable {
 
         return isWinner;
     }
-    //these could be combined into a single method 
 
-    public void setPreviousRow(int row) {
-        previousRow = row;
+    public void setHasCarrot() {
 
+        hasCarrot = true;
     }
 
-    public void setPreviousColumn(int column) {
-        previousColumn = column;
-
-    }
-
-    //these could also be combined into a single method 
-    public int getPreviousRow() {
-
-        return previousRow;
-    }
-
-    public int getPreviousColumn() {
-        return previousColumn;
+    public void getHasCarrot() {
 
     }
 
