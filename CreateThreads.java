@@ -2,7 +2,6 @@
  * CreateThreads.java
  */
 
-import java.util.Random;
 
 public class CreateThreads implements Runnable {
 
@@ -20,26 +19,22 @@ public class CreateThreads implements Runnable {
 
     //override run() method
     public void run() {
+		int x=5;
         try {
+			System.out.println("Thread " +threadName+" is starting...");
+			
+			while(x>0){
+				System.out.println("Hello World!");
+				
+				x--;
+			}
+			
 
-            Random nums = new Random();
-
-            System.out.println("Thread " + threadName + " exiting");
+            System.out.println("Thread " +threadName+" is exiting...thanks for waiting!");
 
         } catch (Exception e) {
             System.out.print(e.toString());
 
-        }
-
-    }
-    //override start() method 
-
-    public void start() {
-        System.out.println("Starting " + threadName + " thread");
-
-        if (t == null) {
-            t = new Thread(this, threadName);
-            t.start();
         }
 
     }
