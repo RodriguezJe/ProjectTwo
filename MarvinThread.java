@@ -14,8 +14,8 @@ public class MarvinThread extends PlayerThread {
     }
     
 
-    public MarvinThread(String name) {
-        super(name);
+    public MarvinThread(String name, Board referenceToBoard) {
+        super(name, referenceToBoard);
     }
     
     

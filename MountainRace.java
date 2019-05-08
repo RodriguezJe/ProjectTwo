@@ -38,16 +38,16 @@ public class MountainRace {
         Board gameBoard = new Board();
         
 
-        PlayerThread bugsBunnyObject = new PlayerThread("Bugs");
+        PlayerThread bugsBunnyObject = new PlayerThread("Bugs", gameBoard);
         Thread bugsThread = new Thread(bugsBunnyObject,"Bugs");
         
-        PlayerThread tazDevilObject = new PlayerThread("TazDevil");
+        PlayerThread tazDevilObject = new PlayerThread("TazDevil", gameBoard);
         Thread tazDevilThread = new Thread(tazDevilObject, "TazDevil");
         
-        PlayerThread tweetyObject = new PlayerThread("Tweety");
+        PlayerThread tweetyObject = new PlayerThread("Tweety", gameBoard);
         Thread tweetyThread = new Thread(tweetyObject, "Tweety");
         
-        PlayerThread marvinObject = new MarvinThread("Marvin");//note need MarvinThread here.
+        PlayerThread marvinObject = new MarvinThread("Marvin", gameBoard);//note need MarvinThread here.
         Thread marvinThread = new Thread(marvinObject, "Marvin");
         
         //print the board

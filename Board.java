@@ -12,10 +12,8 @@ public class Board {
     private Space[][] board;
     private boolean isThereAWinner = false;
     
-    //Only making one board so these can be static.
-    //I made these static as a hack to get at the values from PlayerThread.movePlayer().
-    private final static int ROWS = 9;
-    private final static int COLUMNS = 9;
+    private final int ROWS = 9;
+    private final int COLUMNS = 9;
 
     private int mtRow;
     private int mtColumn;
@@ -67,7 +65,7 @@ public class Board {
     
     //Returns the row/column numbers for an empty square in the grid.
     //returns -1, -1 if error.
-    private int[] getRandomEmptySpaceCoordinates() {
+    private synchronized int[] getRandomEmptySpaceCoordinates() {
         int returnRow = -1;
         int returnColumn = -1;
         
@@ -109,7 +107,6 @@ public class Board {
     
     public boolean isGameOver() {
         //check if a player is on the mountain and has a carrot.
-        //Get rid of global flag
         
         return isThereAWinner;
     }
@@ -135,11 +132,11 @@ public class Board {
 
     }
     
-    public static int getROWS() {
+    public int getROWS() {
         return ROWS;
     }
     
-    public static int getCOLUMNS() {
+    public int getCOLUMNS() {
         return COLUMNS;
     }
     

@@ -5,7 +5,8 @@
 //Grid display updates should be handled by the threads during play.
 //  Should update every time they make a move.
 
-
+// https://docs.oracle.com/javase/tutorial/essential/concurrency/syncrgb.html
+// https://www.javatpoint.com/synchronization-in-java
 
 /*
     * try{
@@ -28,10 +29,12 @@ public class PlayerThread implements Runnable {
     private Thread t;
     private boolean isWinner;
     private boolean hasCarrot;
+    private Board board;
 
     //constructor 
-    public PlayerThread(String name) {
+    public PlayerThread(String name, Board referenceToBoard) {
         threadName = name;
+        board = referenceToBoard;
 
     }
 
@@ -69,35 +72,38 @@ public class PlayerThread implements Runnable {
     
     
     
-    //moves player to random spot
+    //moves player to random adjacent spot
     // We can make this more elegant later. For looping through the whole grid is silly.
+    //Locks down board do that it can't change while this is being run.
     private void movePlayer() {
-        //get current location
-        
-        int[] currentLocation = new int[2];
-        
-        for (int i = 0; i < Board.getROWS(); i++) {
-            for (int j = 0; j < Board.getCOLUMNS(); j++) {
-                //~ if ( jjhgjhhj ) {
-                    
-                //~ }
+        synchronized (board) {
+            
+            //get current location
+            
+            int[] currentLocation = new int[2];
+            
+            for (int i = 0; i < board.getROWS(); i++) {
+                for (int j = 0; j < board.getCOLUMNS(); j++) {
+                    //~ if ( jjhgjhhj ) {
+                        
+                    //~ }
+                }
             }
+            
+            
+            //check how many squares I can move to. numPossibleMoves  (if zero don't move. print a message)
+            //  use    canIMoveToHere()  for loop increment counter
+            //add each coordinate to a multidimensional array
+            //      int[][] moves = new [numPossibleMoves][2]
+            //      go through again and add each coordinate pair to the array
+            //          maybe use an arraylist?
+            //
+            
+            
+            //roll a random number between 0 and numPossibleMoves.
+            //  Move to that Space.
+            //      (deleting self from current space + adding self to new space)
         }
-        
-        
-        //check how many squares I can move to. numPossibleMoves  (if zero don't move. print a message)
-        //  use    canIMoveToHere()  for loop increment counter
-        //add each coordinate to a multidimensional array
-        //      int[][] moves = new [numPossibleMoves][2]
-        //      go through again and add each coordinate pair to the array
-        //          maybe use an arraylist?
-        //
-        
-        
-        //roll a random number between 0 and numPossibleMoves.
-        //  Move to that Space.
-        //      (deleting self from current space + adding self to new space)
-        
     }
 
     //setter method
@@ -116,10 +122,6 @@ public class PlayerThread implements Runnable {
     public void setHasCarrot() {
 
         hasCarrot = true;
-    }
-
-    public void getHasCarrot() {
-
     }
 
 }
