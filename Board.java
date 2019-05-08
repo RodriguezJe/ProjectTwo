@@ -4,7 +4,9 @@
  * 
  */
 
-public class Grid {
+import java.util.Random;
+
+public class Board {
 
     //fields
     private Space[][] board;
@@ -19,18 +21,58 @@ public class Grid {
     private int carrotColumn;
 
     //method uses a 2-D array to creat grid 
-    public void createGrid() {
+    public void Board() {
         board = new Space[ROWS][COLUMNS];
 
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                board[j][i] = new Space(j, i);
-
+                board[i][j] = new Space(i, j);
             }
-
         }
-
+        
+        Random randomObject = new Random();
+        
+        
+        //place one mountain on the board. Board is empty so any random place will do.
+        int tempRow = randomObject.nextInt();
+        int tempColumn = randomObject.nextInt();
+        board[tempRow][tempColumn].setOccupant("Mountain");
+        
+        //Place two carrots on the board. Checking if something is in that square already.
+        int[] carrotCoordinates1 = getRandomEmptySpaceCoordinates();
+        board[carrotCoordinates1[0]][carrotCoordinates1[1]].setOccupant("Carrot");
+        
+        int[] carrotCoordinates2 = getRandomEmptySpaceCoordinates();
+        board[carrotCoordinates2[0]][carrotCoordinates2[1]].setOccupant("Carrot");
+        
+        
+        //Place the players on the board.
+        
+        
     }
+    
+    //Returns the row/column numbers for an empty square in the grid.
+    //returns -1, -1 if error.
+    private int[] getRandomEmptySpaceCoordinates() {
+		int returnRow = -1;
+		int returnColumn = -1;
+		
+		Random randObj = new Random();
+		int tempRow = randObj.nextInt();
+		int tempColumn = randObj.nextInt();
+		
+		//int counter = 0;
+		//while ( counter < Integer.MAX_VALUE && !board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() ) {
+		while ( !board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() ) {
+			tempRow = randObj.nextInt();
+			tempColumn = randObj.nextInt();
+			//counter++;
+		}
+		returnRow = tempRow;
+		returnColumn = tempColumn;
+		
+		return new int[] {returnRow, returnColumn};
+	}
 
     public void setMountain(int row, int column) {
 

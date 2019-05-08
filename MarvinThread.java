@@ -15,9 +15,6 @@ public class MarvinThread extends PlayerThread {
         super(name);
     }
 	
-    private void freezeOtherPlayer() {
-        
-    }
     
     //Used when marvin steps on another player's square.
     private void killOtherPlayer() {

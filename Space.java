@@ -5,80 +5,130 @@
 
 public class Space {
 
-    private boolean isOccupied;
     private int row;
     private int column;
-    private String name;
+    
+    private boolean isBugsHere;
+    private boolean isTazDevilHere;
+    private boolean isTweetyHere;
+    private boolean isMarvinHere;
+    
+    private boolean isCarrotHere;
+    private boolean isMountainHere;
+    
 
     public Space(int row, int column) {
         this.row = row;
         this.column = column;
-        name = " ";
 
     }
-
-    public void setName(String name) {
-
-        this.name = name;
-
-    }
-
-    public void removeName() {
-
-        name = " ";
-
-    }
-
-    public String getName() {
-
-        if (name.equals(" ")) {
-
-            return "-";
+    
+    //pass the name of the new occupant to set as true.
+    protected void setOccupant(String newOccupant) {
+        if ( newOccupant.equals("Bugs") ){
+            isBugsHere = true;
         }
-
-        return name;
-
+        else if ( newOccupant.equals("TazDevil") ){
+            isTazDevilHere = true;
+        }
+        else if ( newOccupant.equals("Tweety") ){
+            isTweetyHere = true;
+        }
+        else if ( newOccupant.equals("Marvin") ){
+            isMarvinHere = true;
+        }
+        else if ( newOccupant.equals("Carrot") ){
+            isCarrotHere = true;
+        }
+        else if ( newOccupant.equals("Mountain") ){
+            isMountainHere = true;
+        }
+        else{
+            System.out.println("!INCORRECT INPUT STRING! IN Space.setOccupant() !");
+        }
+    }
+    
+    //pass the name of occupant to remove
+    protected void removeOccupant(String occupantToRemove) {
+        if ( occupantToRemove.equals("Bugs") ){
+            isBugsHere = false;
+        }
+        else if ( occupantToRemove.equals("TazDevil") ){
+            isTazDevilHere = false;
+        }
+        else if ( occupantToRemove.equals("Tweety") ){
+            isTweetyHere = false;
+        }
+        else if ( occupantToRemove.equals("Marvin") ){
+            isMarvinHere = false;
+        }
+        else if ( occupantToRemove.equals("Carrot") ){
+            isCarrotHere = false;
+        }
+        else if ( occupantToRemove.equals("Mountain") ){
+            isMountainHere = false;
+        }
+        else{
+            System.out.println("!INCORRECT INPUT STRING! IN Space.removeOccupant() !");
+        }
     }
 
-    public void setIsOccupied(String name) {
-
-        isOccupied = true;
-
-        setName(name);
-
-    }
-
-    public void setAsOpen() {
-
-        isOccupied = false;
-        removeName();
-    }
-
-    public boolean getIsOccupied() {
-
-        return isOccupied;
-
-    }
-
-    public void setRow(int row) {
-
-        this.row = row;
-    }
 
     public int getRow() {
 
         return row;
-
     }
 
-    public void setColumn(int column) {
-
-        this.column = column;
-    }
 
     public int getColumn() {
 
         return column;
+    }
+    
+    public String printOccupants() {
+        
+        String outputString = "";
+        if (isMountainHere){
+            outputString += "F";
+        }
+        else{
+            outputString += " ";
+        }
+        if (isCarrotHere){
+            outputString += "C";
+        }
+        else{
+            outputString += " ";
+        }
+        //Not using elses so we can catch input bugs easier.
+        if (isMarvinHere){
+            outputString += "M";
+        }
+        if (isBugsHere){
+            outputString += "B";
+        }
+        if (isTweetyHere){
+            outputString += "T";
+        }
+        if (isTazDevilHere){
+            outputString += "D";
+        }
+        if ( !isThisSpaceOccupiedByPlayer() ){
+            outputString += " ";
+        }
+        
+        
+        return outputString;
+    }
+    
+    public boolean isThisSpaceOccupiedByPlayer(){
+        
+        return isBugsHere || isTweetyHere || isTazDevilHere || isMarvinHere;
+    }
+    
+    public boolean isThisSpaceOccupiedByAnything() {
+        
+        return isThisSpaceOccupiedByPlayer() || isCarrotHere || isMountainHere;
     }
 
 }
