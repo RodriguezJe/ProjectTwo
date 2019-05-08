@@ -44,14 +44,14 @@ public class PlayerThread implements Runnable {
         
         //LOCK THE BOARD
         
-        int x = 5;
+        int x = 5000;
         try {
             //~ System.out.println("Thread " +threadName+" is starting...");
-            //~ while(x > 0) {
+            while(x > 0) {
                 //~ System.out.println( threadName + ": Hello World!");
-                //~ x--;
-                //~ movePlayer();
-            //~ }
+                x--;
+                movePlayer();
+            }
             //~ Random rando = new Random();
             
             //~ int sleepyTime = rando.nextInt(5);
@@ -59,10 +59,10 @@ public class PlayerThread implements Runnable {
             
             //~ Thread.sleep(sleepyTime * 1000);
             
-            System.out.println( "oficcial val of Id:" + Thread.currentThread().getId() + "  givin by me is:" + threadName);
-            System.out.println(threadName + ": is exiting...thanks for waiting!");
+            //~ System.out.println( "oficcial val of Id:" + Thread.currentThread().getId() + "  givin by me is:" + threadName);
+            //~ System.out.println(threadName + ": is exiting...thanks for waiting!");
             
-            movePlayer();
+            //~ movePlayer();
             
             //UNLOCK THE BOARD
             
@@ -150,13 +150,43 @@ public class PlayerThread implements Runnable {
             }
             System.out.println("Press enter to continue");
             
+            //if on carrot, set hasCarot!
+            if ( isPlayerOnCarrot( possibleMoves.get(wayToPick)[0], possibleMoves.get(wayToPick)[1] ) ) {
+                setHasCarrot();
+            }
             
             //if have carrot and on mountain, set this player as winner
+            
+            if ( hasCarrot && isPlayerOnMountain( possibleMoves.get(wayToPick)[0], possibleMoves.get(wayToPick)[1] ) ) {
+                System.out.println(threadName + " is the winner! WOW!");
+                setPlayerAsWinner();
+                
+            }
             
             //interrupt the other threads
             
             
         }
+    }
+    
+    
+    private boolean isPlayerOnMountain(int row, int col) {
+        if ( board.board[row][col].getIsMountainHere() ) {
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    private boolean isPlayerOnCarrot( int row, int col ) {
+        if ( board.board[row][col].getIsCarrotHere() ) {
+            
+            return true;
+        }
+
+        return false;
     }
     
     
