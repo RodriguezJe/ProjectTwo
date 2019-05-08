@@ -100,7 +100,7 @@ public class Space {
         else{
             outputString += " ";
         }
-        //Not using elses so we can catch input bugs easier.
+        //Note not using elses so we can catch input bugs easier.
         if (isMarvinHere){
             outputString += "M";
         }

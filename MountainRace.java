@@ -25,8 +25,10 @@ public class MountainRace {
     
     public static String Play() {
 		System.out.println("B-Bugs Bunny D-Taz Devil T-Tweety M-Marvin F-Mountain C-Carrot");
-        Grid gameGrid = new Grid();
-        gameGrid.createGrid();
+        
+        //Create Game Board
+        //Currently infinite looping
+        Board gameBoard = new Board();
         
 
         PlayerThread bugsBunnyObject = new PlayerThread("Bugs");
@@ -40,6 +42,10 @@ public class MountainRace {
         
         PlayerThread marvinObject = new PlayerThread("Marvin");
         Thread marvinThread = new Thread(marvinObject, "Marvin");
+        
+        //print the board
+        gameBoard.printBoard();
+        
         
 		bugsThread.start();
 		tazDevilThread.start();
@@ -57,6 +63,7 @@ public class MountainRace {
         //  
         //check to see which player has a winner flag.
         //return the winner's name.
+        
         
         
 		String nameOfWinner = "testing!";

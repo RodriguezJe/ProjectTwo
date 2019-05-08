@@ -21,7 +21,7 @@ public class Board {
     private int carrotColumn;
 
     //method uses a 2-D array to creat grid 
-    public void Board() {
+    public Board() {
         board = new Space[ROWS][COLUMNS];
 
         for (int i = 0; i < ROWS; i++) {
@@ -30,15 +30,12 @@ public class Board {
             }
         }
         
-        Random randomObject = new Random();
         
+        //place one mountain on the board. Board is empty so any random space will do.
+        int[] mountainCoordinates = getRandomEmptySpaceCoordinates();
+        board[ mountainCoordinates[0] ][ mountainCoordinates[1] ].setOccupant("Mountain");
         
-        //place one mountain on the board. Board is empty so any random place will do.
-        int tempRow = randomObject.nextInt();
-        int tempColumn = randomObject.nextInt();
-        board[tempRow][tempColumn].setOccupant("Mountain");
-        
-        //Place two carrots on the board. Checking if something is in that square already.
+        //Place two carrots on the board. Checking if something is in that space already.
         int[] carrotCoordinates1 = getRandomEmptySpaceCoordinates();
         board[carrotCoordinates1[0]][carrotCoordinates1[1]].setOccupant("Carrot");
         
@@ -46,8 +43,22 @@ public class Board {
         board[carrotCoordinates2[0]][carrotCoordinates2[1]].setOccupant("Carrot");
         
         
-        //Place the players on the board.
+        ///Place the players on the board.
+        //Place Bugs on the board
+        int[] bugsCoordinates = getRandomEmptySpaceCoordinates();
+        board[bugsCoordinates[0] ][bugsCoordinates[1] ].setOccupant("Bugs");
         
+        //place tweety
+        int[] tweetyCoordinates = getRandomEmptySpaceCoordinates();
+        board[tweetyCoordinates[0] ][tweetyCoordinates[1] ].setOccupant("Tweety");
+        
+        //place TazDevil
+        int[] tazDevilCoordinates = getRandomEmptySpaceCoordinates();
+        board[tazDevilCoordinates[0] ][tazDevilCoordinates[1] ].setOccupant("TazDevil");
+        
+        //place Marvin
+        int[] marvinCoordinates = getRandomEmptySpaceCoordinates();
+        board[marvinCoordinates[0] ][marvinCoordinates[1] ].setOccupant("Marvin");
         
     }
     
@@ -58,42 +69,22 @@ public class Board {
 		int returnColumn = -1;
 		
 		Random randObj = new Random();
-		int tempRow = randObj.nextInt();
-		int tempColumn = randObj.nextInt();
+		int tempRow;
+		int tempColumn;
 		
 		//int counter = 0;
 		//while ( counter < Integer.MAX_VALUE && !board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() ) {
-		while ( !board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() ) {
-			tempRow = randObj.nextInt();
-			tempColumn = randObj.nextInt();
+        do {
+			tempRow = randObj.nextInt(ROWS);
+			tempColumn = randObj.nextInt(COLUMNS);
 			//counter++;
-		}
+		} while ( board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() );
 		returnRow = tempRow;
 		returnColumn = tempColumn;
 		
 		return new int[] {returnRow, returnColumn};
 	}
 
-    public void setMountain(int row, int column) {
-
-        mtRow = row;
-        mtColumn = column;
-
-        //remove previous F
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                if (board[i][j].getName().equals("F")) {
-                    board[i][j].setAsOpen();
-                }
-
-            }
-
-        }
-
-        board[mtRow][mtColumn].setIsOccupied("F");
-        mtLocation();
-
-    }
 
     public void mtLocation() {
         System.out.println("\nThe mountain has moved to row " + mtColumn + " column " + mtRow);
@@ -120,61 +111,63 @@ public class Board {
 		return isThereAWinner;
 	}
 
-    public String displayWinner() {
+    //~ public String displayWinner() {
 
-        return board[mtRow][mtColumn].getName();
-    }
+        //~ return board[mtRow][mtColumn].getName();
+    //~ }
+    
     //call to see current content of grid 
-
-    public void printGrid() {
+    public void printBoard() {
 
         for (int i = 0; i < ROWS; i++) {
             String line = "";
 
             for (int j = 0; j < COLUMNS; j++) {
 
-                line += "[" + board[j][i].getName() + "]";
+                line += "[" + board[j][i].printOccupants() + "]";
             }
 
             System.out.println(line);
         }
 
     }
+    
     //call to place or move players in grid 
+    //~ public void markGrid(int row, int column, String name) {
 
-    public void markGrid(int row, int column, String name) {
+        //~ if (!validMove(row, column)) {
+            //~ removeMark(name);
+            //~ board[row][column].setIsOccupied(name);
 
-        if (!validMove(row, column)) {
-            removeMark(name);
-            board[row][column].setIsOccupied(name);
+        //~ }
 
-        }
-
-    }
+    //~ }
 
     //will be needed when we move player to remove previous mark 
-    public void removeMark(String name) {
+    //~ public void removeMark(String name) {
 
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                if (board[i][j].getName().equals(name)) {
-                    board[i][j].setAsOpen();
-                }
+        //~ for (int i = 0; i < ROWS; i++) {
+            //~ for (int j = 0; j < COLUMNS; j++) {
+                //~ if (board[i][j].getName().equals(name)) {
+                    //~ board[i][j].setAsOpen();
+                //~ }
 
-            }
+            //~ }
 
-        }
+        //~ }
 
-    }
+    //~ }
 
-    public boolean validMove(int row, int column) {
+//Maybe move isValidMove to player Threads Class. Marvin will need an overriden method.
 
-        if (row == mtRow && column == mtColumn) {
-            setWinner();
-            return false;
-        }
+    //~ public boolean isValidMove(int row, int column) {
 
-        return board[row][column].getIsOccupied();
+        //~ if (row == mtRow && column == mtColumn) {
+            //~ setWinner();
+            //~ return false;
+        //~ }
 
-    }
+        //~ return board[row][column].getIsOccupied();
+
+    //~ }
 }
