@@ -1,9 +1,25 @@
 /*
- * CreateThreads.java
+ * PlayerThread.java
  */
 
+//Grid display updates should be handled by the threads during play.
 
-public class CreateThreads implements Runnable {
+
+/*
+    * try{
+    * starting all of them}
+    * catch( interrupted exception ){ exit loop}
+    * 		Will be thrown when one thread wins.
+    * 		Marvin can always win. so we don't need to worry about all players dying.
+    * 
+    * 
+    * if all complete this turn send signal to run again
+    * 
+    */
+
+
+
+public class PlayerThread implements Runnable {
 
     //fields
     private String threadName;
@@ -12,7 +28,7 @@ public class CreateThreads implements Runnable {
     private boolean hasCarrot;
 
     //constructor 
-    public CreateThreads(String name) {
+    public PlayerThread(String name) {
         threadName = name;
 
     }

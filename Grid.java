@@ -8,7 +8,7 @@ public class Grid {
 
     //fields
     private Space[][] board;
-    private boolean winner = false;
+    private boolean isThereAWinner = false;
     private final int ROWS = 9;
     private final int COLUMNS = 9;
 
@@ -66,15 +66,17 @@ public class Grid {
 
     public void setWinner() {
 
-        winner = true;
+        isThereAWinner = true;
 
     }
 
-    public boolean getWinner() {
-
-        return winner;
-
-    }
+    
+    public boolean isGameOver() {
+		//check if a player is on the mountain and has a carrot.
+		//Get rid of global flag
+		
+		return isThereAWinner;
+	}
 
     public String displayWinner() {
 

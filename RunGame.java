@@ -2,63 +2,50 @@
  * RunGame.java
  */
 
+
+//two options for marvin killing threads. Kill the thread or make it sleep for MAX_INT seconds.
+
+//a "turn" should be a thread waiting for 1 second after it has finished it's main loop.
+
 import java.util.Random;
 
 public class RunGame {
 
     public static void main(String[] args) throws InterruptedException {
 
-        System.out.println("B-Bugs Bunny D-Taz Devil T-Tweety M-Marvin F-Mountain C-Carrot");
-        Grid x = new Grid();
-        x.createGrid();
+	String nameOfTheWinner = Play();
+        
+	System.out.println( nameOfTheWinner + "WINS!");
+		
+				
+			
+    }
+    
+    
+    public static String Play() {
+		System.out.println("B-Bugs Bunny D-Taz Devil T-Tweety M-Marvin F-Mountain C-Carrot");
+        Grid gameGrid = new Grid();
+        gameGrid.createGrid();
         
 
-        CreateThreads threads = new CreateThreads("B");
-        Thread T1= new Thread (threads,"B");
-        //CreateThreads T2 = new CreateThreads("D");
-        //CreateThreads T3 = new CreateThreads("T");
-        //CreateThreads T4 = new CreateThreads("M");
-        T1.start();
-        T1.join();
-        //T2.start();
-        //T3.start();
-        //T4.start();
-        Random num = new Random();
-
-        int counter = 0;
-
-        //testing the markGrid and removeMark methods
-        while (!x.getWinner()) {
-
-            if (counter % 3 == 0) {
-                x.setMountain(num.nextInt(9), num.nextInt(9));
-
-            }
-
-            int row = num.nextInt(9);
-            int column = num.nextInt(9);
-            x.markGrid(row, column, "B");
-
-            row = num.nextInt(9);
-            column = num.nextInt(9);
-            x.markGrid(row, column, "D");
-
-            row = num.nextInt(9);
-            column = num.nextInt(9);
-            x.markGrid(row, column, "T");
-
-            row = num.nextInt(9);
-            column = num.nextInt(9);
-            x.markGrid(row, column, "M");
-
-            System.out.print("\n");
-            x.printGrid();
-            counter++;
-
-        }
-
-        System.out.println("\n" + x.displayWinner() + " won!");
-       
-
-    }
+        PlayerThread bugsBunnyObject = new PlayerThread("B");
+        Thread bugsThread = new Thread(bugsBunnyObject,"B");
+        
+        PlayerThread tazDevilObject = new PlayerThread("D");
+        Thread tazDevilThread = new Thread(tazDevilObject, "D");
+        
+        PlayerThread tweetyObject = new PlayerThread("T");
+        Thread tweetyThread = new Thread(tweetyObject, "T");
+        
+        PlayerThread marvinObject = new PlayerThread("M");
+        Thread marvinThread = new Thread(marvinObject, "M");
+        
+		bugsThread.start();
+		tazDevilThread.start();
+		tweetyThread.start();
+		marvinThread.start();
+		
+		String nameOfWinner = "testing!";
+		return nameOfWinner;
+	}
 }
