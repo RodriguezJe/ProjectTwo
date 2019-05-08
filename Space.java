@@ -130,5 +130,24 @@ public class Space {
         
         return isThisSpaceOccupiedByPlayer() || isCarrotHere || isMountainHere;
     }
+    
+    public boolean getIsBugsHere() {
+        return isBugsHere;
+    }
+    public boolean getIsTweetyHere() {
+        return isTweetyHere;
+    }
+    public boolean getIsTazDevilHere() {
+        return isTazDevilHere;
+    }
+    public boolean getIsMarvinHere() {
+        return isMarvinHere;
+    }
+    public boolean getIsMountainHere() {
+        return isMountainHere;
+    }
+    public boolean getIsCarrotHere() {
+        return isCarrotHere;
+    }
 
 }

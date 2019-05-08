@@ -3,9 +3,16 @@
  */
 
 
-//two options for marvin killing threads. Kill the thread or make it sleep for MAX_INT seconds.
+//a "turn" should be a thread waiting for 1 second after it has finished its main loop?
+//Maybe wait 1 second +- random miliseconds. That way the threads won't always execute in the same order.
 
-//a "turn" should be a thread waiting for 1 second after it has finished it's main loop.
+//Will be able to tell if a thread has won by checking for a custom exception
+//  It will extend the InterruptedException class. If it causes winner to be returned, or something,
+//  it will kill all other running threads and set the main while loop to (isWinner == true)
+//  or something like that to make it stop.
+
+//NEVER USE THREAD.stop()
+//  https://www.javaspecialists.eu/archive/Issue056.html
 
 import java.util.Random;
 
@@ -13,18 +20,18 @@ public class MountainRace {
 
     public static void main(String[] args) throws InterruptedException {
 
-	String nameOfTheWinner = Play();
+    String nameOfTheWinner = Play();
         
-	System.out.println( nameOfTheWinner + "WINS!");
-	
-	//print grid state
-				
-			
+    System.out.println( nameOfTheWinner + "WINS!");
+    
+    //print grid state
+                
+            
     }
     
     
     public static String Play() {
-		System.out.println("B-Bugs Bunny D-Taz Devil T-Tweety M-Marvin F-Mountain C-Carrot");
+        System.out.println("B-Bugs Bunny D-Taz Devil T-Tweety M-Marvin F-Mountain C-Carrot");
         
         //Create Game Board
         //Currently infinite looping
@@ -40,18 +47,21 @@ public class MountainRace {
         PlayerThread tweetyObject = new PlayerThread("Tweety");
         Thread tweetyThread = new Thread(tweetyObject, "Tweety");
         
-        PlayerThread marvinObject = new PlayerThread("Marvin");
+        PlayerThread marvinObject = new MarvinThread("Marvin");//note need MarvinThread here.
         Thread marvinThread = new Thread(marvinObject, "Marvin");
         
         //print the board
         gameBoard.printBoard();
         
         
-		bugsThread.start();
-		tazDevilThread.start();
-		tweetyThread.start();
-		marvinThread.start();
-		
+        bugsThread.start();
+        tazDevilThread.start();
+        tweetyThread.start();
+        marvinThread.start();
+        
+        //wait for threads to complete
+        
+        
         //while no winner
         //  .start() NEW player threads to carry out moving the player around the board.
         //  when each thread starts they lock the board data structure from other threads.
@@ -66,7 +76,7 @@ public class MountainRace {
         
         
         
-		String nameOfWinner = "testing!";
-		return nameOfWinner;
-	}
+        String nameOfWinner = "testing!";
+        return nameOfWinner;
+    }
 }

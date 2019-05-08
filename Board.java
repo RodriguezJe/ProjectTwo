@@ -11,8 +11,11 @@ public class Board {
     //fields
     private Space[][] board;
     private boolean isThereAWinner = false;
-    private final int ROWS = 9;
-    private final int COLUMNS = 9;
+    
+    //Only making one board so these can be static.
+    //I made these static as a hack to get at the values from PlayerThread.movePlayer().
+    private final static int ROWS = 9;
+    private final static int COLUMNS = 9;
 
     private int mtRow;
     private int mtColumn;
@@ -65,25 +68,25 @@ public class Board {
     //Returns the row/column numbers for an empty square in the grid.
     //returns -1, -1 if error.
     private int[] getRandomEmptySpaceCoordinates() {
-		int returnRow = -1;
-		int returnColumn = -1;
-		
-		Random randObj = new Random();
-		int tempRow;
-		int tempColumn;
-		
-		//int counter = 0;
-		//while ( counter < Integer.MAX_VALUE && !board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() ) {
+        int returnRow = -1;
+        int returnColumn = -1;
+        
+        Random randObj = new Random();
+        int tempRow;
+        int tempColumn;
+        
+        //int counter = 0;
+        //while ( counter < Integer.MAX_VALUE && !board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() ) {
         do {
-			tempRow = randObj.nextInt(ROWS);
-			tempColumn = randObj.nextInt(COLUMNS);
-			//counter++;
-		} while ( board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() );
-		returnRow = tempRow;
-		returnColumn = tempColumn;
-		
-		return new int[] {returnRow, returnColumn};
-	}
+            tempRow = randObj.nextInt(ROWS);
+            tempColumn = randObj.nextInt(COLUMNS);
+            //counter++;
+        } while ( board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() );
+        returnRow = tempRow;
+        returnColumn = tempColumn;
+        
+        return new int[] {returnRow, returnColumn};
+    }
 
 
     public void mtLocation() {
@@ -105,11 +108,11 @@ public class Board {
 
     
     public boolean isGameOver() {
-		//check if a player is on the mountain and has a carrot.
-		//Get rid of global flag
-		
-		return isThereAWinner;
-	}
+        //check if a player is on the mountain and has a carrot.
+        //Get rid of global flag
+        
+        return isThereAWinner;
+    }
 
     //~ public String displayWinner() {
 
@@ -130,6 +133,14 @@ public class Board {
             System.out.println(line);
         }
 
+    }
+    
+    public static int getROWS() {
+        return ROWS;
+    }
+    
+    public static int getCOLUMNS() {
+        return COLUMNS;
     }
     
     //call to place or move players in grid 
