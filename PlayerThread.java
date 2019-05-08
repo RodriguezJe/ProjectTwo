@@ -39,47 +39,58 @@ public class PlayerThread implements Runnable {
 
     }
 
+    //maybe keep the while loop in main so that you can just interrupt all from main.
+
+
     //override run() method
     public void run() {
         
-        //LOCK THE BOARD
-        
-        int x = 5000;
-        try {
-            //~ System.out.println("Thread " +threadName+" is starting...");
-            while(x > 0) {
-                //~ System.out.println( threadName + ": Hello World!");
-                x--;
-                movePlayer();
+        while ( !isWinner ) {
+            try {
+                movePlayer(); // needs to throw an interrupt exception. based on a flag on board.
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                System.out.println(threadName + " has been interrupted!");
+                break;
+            } catch (Exception e) {
+                System.out.print(e.toString() + "A weird exception happened.");
             }
-            //~ Random rando = new Random();
-            
-            //~ int sleepyTime = rando.nextInt(5);
-            //~ System.out.println(threadName + ": I'm going to sleep for " + sleepyTime + " seconds!");
-            
-            //~ Thread.sleep(sleepyTime * 1000);
-            
-            //~ System.out.println( "oficcial val of Id:" + Thread.currentThread().getId() + "  givin by me is:" + threadName);
-            //~ System.out.println(threadName + ": is exiting...thanks for waiting!");
-            
-            //~ movePlayer();
-            
-            //UNLOCK THE BOARD
-            
-        } catch (Exception e) {
-            System.out.print(e.toString());
-
+        }
+        
+        //not sure how to make this work? Pass the threads into this method?
+                //use public getThreadID method.
+        //Interrupt the other threads.
+        if (threadName.equals("Bugs") ) {
+            //interrupt tweety TazDevil and Marvin
+            //~ TazDevil.interrupt();
+        }
+        else if (threadName.equals("Tweety") ) {
+            //interrupt Bugs, TazDevil, Marvin
+            //~ tazDevilThread.interrupt();
+        }
+        else if (threadName.equals("TazDevil") ) {
+            //interrupt Bugs, Tweety, Marvin
+        }
+        else if (threadName.equals("Marvin") ) {
+            //interrupt Bugs, TazDevil, Tweety
         }
 
     }
+    
+    
+    //Gets a thread ID from another thread.
     
     
     
     //moves player to random adjacent spot
     // We can make this more elegant later. For looping through the whole grid is silly.
     //Locks down board do that it can't change while this is being run.
-    private void movePlayer() {
+    private void movePlayer() throws InterruptedException {
         synchronized (board) {
+            
+            if ( board.getIsThereAWinner() ) { //don't forget to set this in board!!!!!!!!!!!!!!!!!!!!!!
+                
+            }
             
             //get current location
             
@@ -163,8 +174,6 @@ public class PlayerThread implements Runnable {
                 
             }
             
-            //interrupt the other threads
-            
             
         }
     }
@@ -210,6 +219,8 @@ public class PlayerThread implements Runnable {
     private void setPlayerAsWinner() {
 
         isWinner = true;
+        board.setWinner( threadName );
+        board.setIsThereAWinner(true);
 
     }
     //getter method

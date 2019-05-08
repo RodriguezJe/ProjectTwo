@@ -11,6 +11,7 @@ public class Board {
     //fields
     public Space[][] board; //Do not make private.
     private boolean isThereAWinner = false;
+    private String nameOfWinner = "";
     
     //Only make squares for now!
     private final int ROWS = 9;
@@ -100,9 +101,11 @@ public class Board {
 
     }
 
-    public void setWinner() {
+    public void setWinner(String winnerName) {
 
         isThereAWinner = true;
+        nameOfWinner = winnerName;
+        
 
     }
 
@@ -111,6 +114,15 @@ public class Board {
         //check if a player is on the mountain and has a carrot.
         
         return isThereAWinner;
+    }
+    
+    public boolean getIsThereAWinner() {
+        
+        return isThereAWinner;
+    }
+    
+    public void setIsThereAWinner(boolean b) {
+        isThereAWinner = b;
     }
 
     //~ public String displayWinner() {

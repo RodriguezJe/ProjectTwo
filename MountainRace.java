@@ -74,7 +74,9 @@ public class MountainRace {
         //check to see which player has a winner flag.
         //return the winner's name.
         
-        
+        System.out.println("Final State of board:");
+        gameBoard.printBoard();
+        System.out.println("The winner is: ");
         
         String nameOfWinner = "testing!";
         return nameOfWinner;
