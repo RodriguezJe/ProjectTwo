@@ -78,11 +78,20 @@ public class Space {
 
         return row;
     }
+    
+    public void setRow(int newRow) {
+        
+        row = newRow;
+    }
 
 
     public int getColumn() {
 
         return column;
+    }
+    
+    public void setColumn(int newColumn) {
+        column = newColumn;
     }
     
     public String printOccupants() {
@@ -131,23 +140,83 @@ public class Space {
         return isThisSpaceOccupiedByPlayer() || isCarrotHere || isMountainHere;
     }
     
+    
+    
+    
     public boolean getIsBugsHere() {
         return isBugsHere;
     }
+    public void setIsBugsHere(boolean b) {
+        isBugsHere = b;
+    }
+    
+    
     public boolean getIsTweetyHere() {
         return isTweetyHere;
     }
+    public void setIsTweetyHere(boolean b) {
+        isTweetyHere = b;
+    }
+    
+    
     public boolean getIsTazDevilHere() {
         return isTazDevilHere;
     }
+    public void setIsTazDevilHere(boolean b) {
+        isTazDevilHere = b;
+    }
+    
+    
     public boolean getIsMarvinHere() {
         return isMarvinHere;
     }
+    public void setIsMarvinHere(boolean b) {
+        isMarvinHere = b;
+    }
+    
+    
     public boolean getIsMountainHere() {
         return isMountainHere;
     }
+    public void setIsMountainHere(boolean b) {
+        isMountainHere = b;
+    }
+    
+    
     public boolean getIsCarrotHere() {
         return isCarrotHere;
+    }
+    public void setIsCarrotHere(boolean b) {
+        isCarrotHere = b;
+    }
+    
+    
+    
+    //check if "name" is here
+    public boolean isThisPlayerHere(String nameToCheck) {
+        if ( nameToCheck.equals("Bugs") ) {
+            
+            return isBugsHere;
+        }
+        else if ( nameToCheck.equals("Tweety") ) {
+            
+            return isTweetyHere;
+        }
+        else if ( nameToCheck.equals("TazDevil")  ) {
+            
+            return isTazDevilHere;
+        }
+        else if ( nameToCheck.equals("Marvin")  ) {
+            
+            return isMarvinHere;
+        }
+        else {
+            System.out.println("Incorrect input in Space.isThisPlayerHere() !");
+            
+            return false; // Hopefully this never runs!
+        }
+        
+        //~ return false;
     }
 
 }

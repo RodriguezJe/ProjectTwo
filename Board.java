@@ -140,6 +140,26 @@ public class Board {
         return COLUMNS;
     }
     
+    public Space[][] getBoard() {
+        
+        Space[][] copy = new Space[ROWS][COLUMNS];
+        
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                copy[i][j].setRow( board[i][j].getRow() );
+                copy[i][j].setColumn( board[i][j].getColumn() );
+                copy[i][j].setIsBugsHere( board[i][j].getIsBugsHere() );
+                copy[i][j].setIsTazDevilHere( board[i][j].getIsTazDevilHere() );
+                copy[i][j].setIsTweetyHere( board[i][j].getIsTweetyHere() );
+                copy[i][j].setIsMarvinHere( board[i][j].getIsMarvinHere() );
+                copy[i][j].setIsCarrotHere( board[i][j].getIsCarrotHere() );
+                copy[i][j].setIsMountainHere( board[i][j].getIsMountainHere() );
+            }
+        }
+        
+        return copy; // copy of board using arraycopy
+    }
+    
     //call to place or move players in grid 
     //~ public void markGrid(int row, int column, String name) {
 

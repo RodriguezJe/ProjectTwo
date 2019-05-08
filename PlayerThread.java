@@ -82,11 +82,15 @@ public class PlayerThread implements Runnable {
             
             int[] currentLocation = new int[2];
             
+            Space[][] boardCopy = board.getBoard();
+            
             for (int i = 0; i < board.getROWS(); i++) {
                 for (int j = 0; j < board.getCOLUMNS(); j++) {
-                    //~ if ( jjhgjhhj ) {
-                        
-                    //~ }
+                    
+                    if ( boardCopy[i][j].isThisPlayerHere( threadName ) ) {
+                        currentLocation[0] = i;
+                        currentLocation[1] = j;
+                    }
                 }
             }
             
