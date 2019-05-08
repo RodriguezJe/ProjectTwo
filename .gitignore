@@ -2,3 +2,4 @@ Grid.class
 RunGame.class
 PlayerThread.class
 Space.class
+MarvinThread.class
