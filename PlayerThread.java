@@ -98,21 +98,22 @@ public class PlayerThread implements Runnable {
                     }
                 }
             }
+            System.out.println(threadName + " is currently at:" + currentLocation[0] + "," + currentLocation[1]);
             
             ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
             
             //                               row             col                       hasCarrot
-            if ( board.canPlayerMoveHere(currentLocation[0], currentLocation[1] - 1, hasCarrot) ) { //up
-                possibleMoves.add( new int[] { currentLocation[0], currentLocation[1] - 1} );
-            }
-            if ( board.canPlayerMoveHere(currentLocation[0], currentLocation[1] + 1, hasCarrot) ) { //down
-                possibleMoves.add( new int[] { currentLocation[0], currentLocation[1] + 1} );
-            }
-            if ( board.canPlayerMoveHere(currentLocation[0] - 1, currentLocation[1], hasCarrot) ) { //left
+            if ( board.canPlayerMoveHere(currentLocation[0] - 1, currentLocation[1], hasCarrot) ) { //up
                 possibleMoves.add( new int[] { currentLocation[0] - 1, currentLocation[1]} );
             }
-            if ( board.canPlayerMoveHere(currentLocation[0] + 1, currentLocation[1], hasCarrot) ) { //right
-                possibleMoves.add( new int[] { currentLocation[0] + 0, currentLocation[1]} );
+            if ( board.canPlayerMoveHere(currentLocation[0] + 1, currentLocation[1], hasCarrot) ) { //down
+                possibleMoves.add( new int[] { currentLocation[0] + 1, currentLocation[1]} );
+            }
+            if ( board.canPlayerMoveHere(currentLocation[0], currentLocation[1] - 1, hasCarrot) ) { //left
+                possibleMoves.add( new int[] { currentLocation[0], currentLocation[1] - 1} );
+            }
+            if ( board.canPlayerMoveHere(currentLocation[0], currentLocation[1] + 1, hasCarrot) ) { //right
+                possibleMoves.add( new int[] { currentLocation[0], currentLocation[1] + 1} );
             }
             
             //Check how many moves can be made
@@ -132,6 +133,11 @@ public class PlayerThread implements Runnable {
             
             
             moveThisPlayerToThatSpace( currentLocation, possibleMoves.get(wayToPick));
+            
+            System.out.println(threadName + ": Has moved!");
+            System.out.println("From: " + currentLocation[0] + "," + currentLocation[1] + "   to: " + possibleMoves.get(wayToPick)[0] + "," + possibleMoves.get(wayToPick)[1]);
+            board.printBoard();
+            
             
         }
     }
