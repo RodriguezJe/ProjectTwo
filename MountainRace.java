@@ -1,5 +1,5 @@
 /*
- * RunGame.java
+ * MountainRace.java
  */
 
 
@@ -9,14 +9,15 @@
 
 import java.util.Random;
 
-public class RunGame {
+public class MountainRace {
 
     public static void main(String[] args) throws InterruptedException {
 
 	String nameOfTheWinner = Play();
         
 	System.out.println( nameOfTheWinner + "WINS!");
-		
+	
+	//print grid state
 				
 			
     }
