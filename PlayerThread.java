@@ -46,22 +46,23 @@ public class PlayerThread implements Runnable {
         
         int x = 5;
         try {
-            System.out.println("Thread " +threadName+" is starting...");
-            while(x > 0) {
-                System.out.println( threadName + ": Hello World!");
-                x--;
-                movePlayer();
-            }
-            Random rando = new Random();
+            //~ System.out.println("Thread " +threadName+" is starting...");
+            //~ while(x > 0) {
+                //~ System.out.println( threadName + ": Hello World!");
+                //~ x--;
+                //~ movePlayer();
+            //~ }
+            //~ Random rando = new Random();
             
-            int sleepyTime = rando.nextInt(5);
-            System.out.println(threadName + ": I'm going to sleep for " + sleepyTime + " seconds!");
+            //~ int sleepyTime = rando.nextInt(5);
+            //~ System.out.println(threadName + ": I'm going to sleep for " + sleepyTime + " seconds!");
             
-            Thread.sleep(sleepyTime * 1000);
+            //~ Thread.sleep(sleepyTime * 1000);
             
             System.out.println( "oficcial val of Id:" + Thread.currentThread().getId() + "  givin by me is:" + threadName);
             System.out.println(threadName + ": is exiting...thanks for waiting!");
             
+            movePlayer();
             
             //UNLOCK THE BOARD
             
@@ -137,6 +138,22 @@ public class PlayerThread implements Runnable {
             System.out.println(threadName + ": Has moved!");
             System.out.println("From: " + currentLocation[0] + "," + currentLocation[1] + "   to: " + possibleMoves.get(wayToPick)[0] + "," + possibleMoves.get(wayToPick)[1]);
             board.printBoard();
+            
+            
+            //press enter to continue
+            System.out.println("Press enter to continue");
+            try{
+                System.in.read();
+            }
+            catch(Exception e) {
+                //do nothing
+            }
+            System.out.println("Press enter to continue");
+            
+            
+            //if have carrot and on mountain, set this player as winner
+            
+            //interrupt the other threads
             
             
         }
