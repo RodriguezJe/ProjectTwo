@@ -21,6 +21,7 @@
     */
 
 import java.util.Random;
+import java.util.ArrayList;
 
 public class PlayerThread implements Runnable {
 
@@ -49,6 +50,7 @@ public class PlayerThread implements Runnable {
             while(x > 0) {
                 System.out.println( threadName + ": Hello World!");
                 x--;
+                movePlayer();
             }
             Random rando = new Random();
             
@@ -82,33 +84,74 @@ public class PlayerThread implements Runnable {
             
             int[] currentLocation = new int[2];
             
-            Space[][] boardCopy = board.getBoard();
+            //~ Space[][] boardCopy = board.getBoard();
             
             for (int i = 0; i < board.getROWS(); i++) {
                 for (int j = 0; j < board.getCOLUMNS(); j++) {
                     
-                    if ( boardCopy[i][j].isThisPlayerHere( threadName ) ) {
+                    //~ if ( boardCopy[i][j].isThisPlayerHere( threadName ) ) {
+                        //~ currentLocation[0] = i;
+                        //~ currentLocation[1] = j;
+                    if ( board.board[i][j].isThisPlayerHere( threadName ) ) {
                         currentLocation[0] = i;
                         currentLocation[1] = j;
                     }
                 }
             }
             
+            ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
             
-            //check how many squares I can move to. numPossibleMoves  (if zero don't move. print a message)
-            //  use    canIMoveToHere()  for loop increment counter
-            //add each coordinate to a multidimensional array
-            //      int[][] moves = new [numPossibleMoves][2]
-            //      go through again and add each coordinate pair to the array
-            //          maybe use an arraylist?
-            //
+            //                               row             col                       hasCarrot
+            if ( board.canPlayerMoveHere(currentLocation[0], currentLocation[1] - 1, hasCarrot) ) { //up
+                possibleMoves.add( new int[] { currentLocation[0], currentLocation[1] - 1} );
+            }
+            if ( board.canPlayerMoveHere(currentLocation[0], currentLocation[1] + 1, hasCarrot) ) { //down
+                possibleMoves.add( new int[] { currentLocation[0], currentLocation[1] + 1} );
+            }
+            if ( board.canPlayerMoveHere(currentLocation[0] - 1, currentLocation[1], hasCarrot) ) { //left
+                possibleMoves.add( new int[] { currentLocation[0] - 1, currentLocation[1]} );
+            }
+            if ( board.canPlayerMoveHere(currentLocation[0] + 1, currentLocation[1], hasCarrot) ) { //right
+                possibleMoves.add( new int[] { currentLocation[0] + 0, currentLocation[1]} );
+            }
             
+            //Check how many moves can be made
+            int numPossibleMoves = possibleMoves.size();
             
-            //roll a random number between 0 and numPossibleMoves.
+            if ( numPossibleMoves == 0 ) {
+                System.out.println(threadName + " cannot move!  This message is from PlayerThread.movePlayer() ");
+                return; //exits this method.
+            }
+            
+            Random randomObject = new Random();
+            
+            int wayToPick = randomObject.nextInt( numPossibleMoves );
+            
             //  Move to that Space.
             //      (deleting self from current space + adding self to new space)
+            
+            
+            moveThisPlayerToThatSpace( currentLocation, possibleMoves.get(wayToPick));
+            
         }
     }
+    
+    
+    //Method that handles moving players around
+    private void moveThisPlayerToThatSpace(int[] currentSpace, int[] wayToGo) {
+        //  If have carrot, also move carrot.
+        if ( hasCarrot ) {
+            board.board[ currentSpace[0] ][ currentSpace[1] ].removeOccupant( "Carrot" );
+            board.board[ wayToGo[0] ][ wayToGo[1] ].setOccupant( "Carrot" );
+        }
+        
+        //set player as being in new space
+        board.board[ wayToGo[0] ][ wayToGo[1] ].setOccupant( threadName );
+        
+        //remove player from old space
+        board.board[ currentSpace[0] ][ currentSpace[1] ].removeOccupant( threadName );
+    }
+    
 
     //setter method
     private void setPlayerAsWinner() {

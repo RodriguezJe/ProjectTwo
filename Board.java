@@ -9,9 +9,10 @@ import java.util.Random;
 public class Board {
 
     //fields
-    private Space[][] board;
+    public Space[][] board; //Do not make private.
     private boolean isThereAWinner = false;
     
+    //Only make squares for now!
     private final int ROWS = 9;
     private final int COLUMNS = 9;
 
@@ -65,9 +66,9 @@ public class Board {
     
     //Returns the row/column numbers for an empty square in the grid.
     //returns -1, -1 if error.
-    private synchronized int[] getRandomEmptySpaceCoordinates() {
-        int returnRow = -1;
-        int returnColumn = -1;
+    private int[] getRandomEmptySpaceCoordinates() {
+        //~ int returnRow = -1;
+        //~ int returnColumn = -1;
         
         Random randObj = new Random();
         int tempRow;
@@ -80,10 +81,11 @@ public class Board {
             tempColumn = randObj.nextInt(COLUMNS);
             //counter++;
         } while ( board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() );
-        returnRow = tempRow;
-        returnColumn = tempColumn;
+        //~ returnRow = tempRow;
+        //~ returnColumn = tempColumn;
         
-        return new int[] {returnRow, returnColumn};
+        //~ return new int[] {returnRow, returnColumn};
+        return new int[] {tempRow, tempColumn};
     }
 
 
@@ -140,6 +142,8 @@ public class Board {
         return COLUMNS;
     }
     
+    
+    //this thing is probably not needed now that board is public.
     public Space[][] getBoard() {
         
         Space[][] copy = new Space[ROWS][COLUMNS];
@@ -158,6 +162,36 @@ public class Board {
         }
         
         return copy; // copy of board using arraycopy
+    }
+    
+    
+    //Checks if a move is valid
+    public boolean canPlayerMoveHere (int proposedRow, int proposedCol, boolean doIHaveCarrot) {
+        
+        if ( (proposedRow < 0) || (proposedCol < 0) ) {
+            
+            return false;
+        }
+        if ( (proposedRow >= ROWS) || (proposedCol >= COLUMNS)  ) {
+            
+            return false;
+        }
+        if ( board[proposedRow][proposedCol].isThisSpaceOccupiedByPlayer() ) {
+            
+            return false;
+        }
+        else if ( board[proposedRow][proposedCol].getIsMountainHere() && doIHaveCarrot ) {
+            
+            return true;
+        }
+        else if ( board[proposedRow][proposedCol].getIsMountainHere() ) {
+            
+            return false;
+        }
+        else {
+            
+            return true; //no players and no mountain. hasCarrot disregarded.
+        }
     }
     
     //call to place or move players in grid 
