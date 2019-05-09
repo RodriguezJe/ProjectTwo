@@ -77,7 +77,7 @@ public class PlayerThread implements Runnable {
             
             //get current location
             
-            int[] currentLocation = new int[2];
+            int[] currentLocation = new int[] { -1, -1};
             
             //~ Space[][] boardCopy = board.getBoard();
             
@@ -93,6 +93,11 @@ public class PlayerThread implements Runnable {
                     }
                 }
             }
+            
+            if ( currentLocation[0] == -1 ) {
+                throw new InterruptedException (threadName + " is still dead!");
+            }
+            
             System.out.println(threadName + " is currently at:" + currentLocation[0] + "," + currentLocation[1]);
             
             ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
