@@ -49,7 +49,7 @@ public class PlayerThread implements Runnable {
         while ( !isWinner ) {
             try {
                 movePlayer(); // needs to throw an interrupt exception. based on a flag on board.
-                //Thread.sleep(1000);
+                Thread.currentThread().sleep(1);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
                 System.out.println(threadName + " has been interrupted!");
