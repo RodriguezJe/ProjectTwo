@@ -95,7 +95,7 @@ public class Board {
 
 
     public void mtLocation() {
-        System.out.println("\nThe mountain starts at row " + mtColumn + " column " + mtRow);
+        System.out.println("The mountain starts at row " + mtColumn + " column " + mtRow);
     }
     
     public void newMt(int row, int column){

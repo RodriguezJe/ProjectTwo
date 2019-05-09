@@ -88,7 +88,6 @@ public class MarvinThread extends PlayerThread {
             if((Board.mtCounter) %3==0 ){
                 System.out.println("Mountain needs to move");
                 updateMountain();
-                System.out.print("printing new location");
                 board.mtLocation();
                 
             }

@@ -160,7 +160,6 @@ public class PlayerThread implements Runnable {
             if((Board.mtCounter) %3==0 ){
                 System.out.println("Mountain needs to move");
                 updateMountain();
-                System.out.print("printing new location");
                 board.mtLocation();
                 
             }
@@ -198,15 +197,13 @@ public class PlayerThread implements Runnable {
     
     public void updateMountain(){
         Random position= new Random();
-        int row= position.nextInt(9);
-        int column=position.nextInt(9);
+        int row = position.nextInt(9);
+        int column = position.nextInt(9);
                 
         while (board.board[row][column].isThisSpaceOccupiedByAnything()){
-            
-            
-            row= position.nextInt(9);
-            column= position.nextInt(9);
-            
+
+            row = position.nextInt(9);
+            column = position.nextInt(9);
         }
         
         System.out.println("Updating mt");
@@ -215,7 +212,7 @@ public class PlayerThread implements Runnable {
         board.board[row][column].setOccupant("Mountain");
         board.newMt(row,column);
         
-        
+        board.printBoard();
         
     }
     
