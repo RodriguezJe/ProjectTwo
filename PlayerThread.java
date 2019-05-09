@@ -26,11 +26,11 @@ import java.util.ArrayList;
 public class PlayerThread implements Runnable {
 
     //fields
-    private String threadName;
-    private Thread t;
-    private boolean isWinner;
-    private boolean hasCarrot;
-    private Board board;
+    protected String threadName;
+    protected Thread t;
+    protected boolean isWinner;
+    protected boolean hasCarrot;
+    protected Board board;
   
 
     //constructor 
@@ -155,16 +155,16 @@ public class PlayerThread implements Runnable {
             //increase counter for mt
             Board.mtCounter++;
             System.out.println ("increasing counter "+ Board.mtCounter);
-			
+            
             
             if((Board.mtCounter) %3==0 ){
-				System.out.println("Mountain needs to move");
-				updateMountain();
-				System.out.print("printing new location");
-				board.mtLocation();
-				
-			}
-			
+                System.out.println("Mountain needs to move");
+                updateMountain();
+                System.out.print("printing new location");
+                board.mtLocation();
+                
+            }
+            
            
             
             //press enter to continue
@@ -185,7 +185,7 @@ public class PlayerThread implements Runnable {
             //if have carrot and on mountain, set this player as winner
             System.out.println("Checking if "+threadName+ " is the winner...");
             if ( hasCarrot && isPlayerOnMountain( possibleMoves.get(wayToPick)[0], possibleMoves.get(wayToPick)[1] ) ) {
-				
+                
                 System.out.println(threadName + " is the winner! WOW!");
                 setPlayerAsWinner();
                 board.setWinner(threadName);
@@ -197,29 +197,29 @@ public class PlayerThread implements Runnable {
     }
     
     public void updateMountain(){
-		Random position= new Random();
-		int row= position.nextInt(9);
-		int column=position.nextInt(9);
-				
-		while (board.board[row][column].isThisSpaceOccupiedByAnything()){
-			
-			
-			row= position.nextInt(9);
-			column= position.nextInt(9);
-			
-		}
-		
-		System.out.println("Updating mt");
-		board.removeMt();
-		
-		board.board[row][column].setOccupant("Mountain");
-		board.newMt(row,column);
-		
-		
-		
-	}
+        Random position= new Random();
+        int row= position.nextInt(9);
+        int column=position.nextInt(9);
+                
+        while (board.board[row][column].isThisSpaceOccupiedByAnything()){
+            
+            
+            row= position.nextInt(9);
+            column= position.nextInt(9);
+            
+        }
+        
+        System.out.println("Updating mt");
+        board.removeMt();
+        
+        board.board[row][column].setOccupant("Mountain");
+        board.newMt(row,column);
+        
+        
+        
+    }
     
-    private boolean isPlayerOnMountain(int row, int col) {
+    protected boolean isPlayerOnMountain(int row, int col) {
         if ( board.board[row][col].getIsMountainHere() ) {
             
             return true;
@@ -229,7 +229,7 @@ public class PlayerThread implements Runnable {
     }
     
     
-    private boolean isPlayerOnCarrot( int row, int col ) {
+    protected boolean isPlayerOnCarrot( int row, int col ) {
         if ( board.board[row][col].getIsCarrotHere() ) {
             
             return true;
@@ -241,7 +241,7 @@ public class PlayerThread implements Runnable {
     
     
     //Method that handles moving players around
-    private void moveThisPlayerToThatSpace(int[] currentSpace, int[] wayToGo) {
+    protected void moveThisPlayerToThatSpace(int[] currentSpace, int[] wayToGo) {
         //  If have carrot, also move carrot.
         if ( hasCarrot ) {
             board.board[ currentSpace[0] ][ currentSpace[1] ].removeOccupant( "Carrot" );
@@ -257,7 +257,7 @@ public class PlayerThread implements Runnable {
     
 
     //setter method
-    private void setPlayerAsWinner() {
+    protected void setPlayerAsWinner() {
 
         isWinner = true;
         board.setWinner( threadName );

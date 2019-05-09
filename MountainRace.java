@@ -58,7 +58,7 @@ public class MountainRace {
         bugsThread.start();
         tazDevilThread.start();
         tweetyThread.start();
-        //marvinThread.start();
+        marvinThread.start();
         
         //wait for threads to complete
         

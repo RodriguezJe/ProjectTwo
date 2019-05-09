@@ -99,12 +99,12 @@ public class Board {
     }
     
     public void newMt(int row, int column){
-		mtRow=row;
-		mtColumn=column;
-		System.out.println("\nThe mountain has moved to row " + mtColumn + " column " + mtRow);
-		
-		
-	}
+        mtRow=row;
+        mtColumn=column;
+        System.out.println("\nThe mountain has moved to row " + mtColumn + " column " + mtRow);
+        
+        
+    }
     
     
 
@@ -203,6 +203,31 @@ public class Board {
             return false;
         }
         if ( board[proposedRow][proposedCol].isThisSpaceOccupiedByPlayer() ) {
+            
+            return false;
+        }
+        else if ( board[proposedRow][proposedCol].getIsMountainHere() && doIHaveCarrot ) {
+            
+            return true;
+        }
+        else if ( board[proposedRow][proposedCol].getIsMountainHere() ) {
+            
+            return false;
+        }
+        else {
+            
+            return true; //no players and no mountain. hasCarrot disregarded.
+        }
+    }
+    
+    //Marvin version of canPlayerMoveHere
+    public boolean canMarvinMoveHere (int proposedRow, int proposedCol, boolean doIHaveCarrot) {
+        
+        if ( (proposedRow < 0) || (proposedCol < 0) ) {
+            
+            return false;
+        }
+        if ( (proposedRow >= ROWS) || (proposedCol >= COLUMNS)  ) {
             
             return false;
         }
