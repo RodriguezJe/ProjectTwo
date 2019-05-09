@@ -2,23 +2,6 @@
  * PlayerThread.java
  */
 
-//Grid display updates should be handled by the threads during play.
-//  Should update every time they make a move.
-
-// https://docs.oracle.com/javase/tutorial/essential/concurrency/syncrgb.html
-// https://www.javatpoint.com/synchronization-in-java
-
-/*
-    * try{
-    * starting all of them}
-    * catch( interrupted exception ){ kill this thread}
-    *       Will be thrown when one thread wins or this thread is stepped on by marvin.
-    *       Marvin CAN always win; so we don't need to worry about all players dying.
-    * 
-    * After making a move and unlocking the board for others, sleep for 
-    * 1 second +- some random miliseconds.
-    * 
-    */
 
 import java.util.Random;
 import java.util.ArrayList;
@@ -40,16 +23,13 @@ public class PlayerThread implements Runnable {
 
     }
 
-    //maybe keep the while loop in main so that you can just interrupt all from main.
-
-
     //override run() method
     public void run() {
         
         while ( !isWinner ) {
             try {
-                movePlayer(); // needs to throw an interrupt exception. based on a flag on board.
-                Thread.currentThread().sleep(1);
+                movePlayer();
+                Thread.currentThread().sleep(1); //Important. Allows other threads to get lock. Else current thread will almost always re-lock the board.
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
                 System.out.println(threadName + " has been interrupted!");
@@ -61,17 +41,13 @@ public class PlayerThread implements Runnable {
     }
     
     
-    //Gets a thread ID from another thread.
-    
-    
-    
     //moves player to random adjacent spot
     // We can make this more elegant later. For looping through the whole grid is silly.
     //Locks down board do that it can't change while this is being run.
     private void movePlayer() throws InterruptedException {
         synchronized (board) {
             
-            if ( board.getIsThereAWinner() ) { //don't forget to set this in board!!!!!!!!!!!!!!!!!!!!!!
+            if ( board.getIsThereAWinner() ) {
                 throw new InterruptedException ("Game over");
             }
             
@@ -79,14 +55,8 @@ public class PlayerThread implements Runnable {
             
             int[] currentLocation = new int[] { -1, -1};
             
-            //~ Space[][] boardCopy = board.getBoard();
-            
             for (int i = 0; i < board.getROWS(); i++) {
                 for (int j = 0; j < board.getCOLUMNS(); j++) {
-                    
-                    //~ if ( boardCopy[i][j].isThisPlayerHere( threadName ) ) {
-                        //~ currentLocation[0] = i;
-                        //~ currentLocation[1] = j;
                     if ( board.board[i][j].isThisPlayerHere( threadName ) ) {
                         currentLocation[0] = i;
                         currentLocation[1] = j;
@@ -128,10 +98,6 @@ public class PlayerThread implements Runnable {
             
             int wayToPick = randomObject.nextInt( numPossibleMoves );
             
-            //  Move to that Space.
-            //      (deleting self from current space + adding self to new space)
-            
-            
             moveThisPlayerToThatSpace( currentLocation, possibleMoves.get(wayToPick));
             
             System.out.println(threadName + ": Has moved!");
@@ -150,7 +116,6 @@ public class PlayerThread implements Runnable {
                 
             }
             
-           
             
             //press enter to continue
             System.out.println("Press enter to continue");
@@ -174,12 +139,10 @@ public class PlayerThread implements Runnable {
                 System.out.println(threadName + " is the winner! WOW!");
                 setPlayerAsWinner();
                 board.setWinner(threadName);
-                
             }
-            
-            
         }
     }
+    
     
     public void updateMountain(){
         Random position= new Random();
@@ -222,7 +185,6 @@ public class PlayerThread implements Runnable {
     }
     
     
-    
     //Method that handles moving players around
     protected void moveThisPlayerToThatSpace(int[] currentSpace, int[] wayToGo) {
         //  If have carrot, also move carrot.
@@ -239,23 +201,20 @@ public class PlayerThread implements Runnable {
     }
     
 
-    //setter method
     protected void setPlayerAsWinner() {
-
         isWinner = true;
         board.setWinner( threadName );
         board.setIsThereAWinner(true);
 
     }
-    //getter method
+
 
     public boolean getIsWinner() {
-
         return isWinner;
     }
 
-    public void setHasCarrot() {
 
+    public void setHasCarrot() {
         hasCarrot = true;
     }
 

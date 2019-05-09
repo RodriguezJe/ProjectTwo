@@ -15,12 +15,13 @@ public class MarvinThread extends PlayerThread {
     }
     
     //override run() method
+    //This is mostly copy/pasted from PlayerThread, except it makes calls to special checking functions.
     public void run() {
         
         while ( !isWinner ) {
             try {
-                this.movePlayer(); // needs to throw an interrupt exception. based on a flag on board.
-                Thread.currentThread().sleep(1);
+                this.movePlayer();
+                Thread.currentThread().sleep(1); //Important. Allows other threads to get lock. Else current thread will almost always re-lock the board.
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
                 System.out.println(threadName + " has been interrupted!");
@@ -31,11 +32,12 @@ public class MarvinThread extends PlayerThread {
         }
     }
     
+    
     //marvin has a special movePlayer method that will allow stepping on other players.
     private void movePlayer() throws InterruptedException {
         synchronized (board) {
             
-            if ( board.getIsThereAWinner() ) { //don't forget to set this in board!!!!!!!!!!!!!!!!!!!!!!
+            if ( board.getIsThereAWinner() ) {
                 throw new InterruptedException ("Game over");
             }
             
@@ -43,14 +45,8 @@ public class MarvinThread extends PlayerThread {
             
             int[] currentLocation = new int[2];
             
-            //~ Space[][] boardCopy = board.getBoard();
-            
             for (int i = 0; i < board.getROWS(); i++) {
                 for (int j = 0; j < board.getCOLUMNS(); j++) {
-                    
-                    //~ if ( boardCopy[i][j].isThisPlayerHere( threadName ) ) {
-                        //~ currentLocation[0] = i;
-                        //~ currentLocation[1] = j;
                     if ( board.board[i][j].isThisPlayerHere( threadName ) ) {
                         currentLocation[0] = i;
                         currentLocation[1] = j;
@@ -87,10 +83,6 @@ public class MarvinThread extends PlayerThread {
             
             int wayToPick = randomObject.nextInt( numPossibleMoves );
             
-            //  Move to that Space.
-            //      (deleting self from current space + adding self to new space)
-            
-            
             moveMarvinToThatSpace( currentLocation, possibleMoves.get(wayToPick));
             
             System.out.println(threadName + ": Has moved!");
@@ -102,21 +94,19 @@ public class MarvinThread extends PlayerThread {
             System.out.println ("increasing counter "+ Board.mtCounter);
             
             
-            if((Board.mtCounter) %3==0 ){
+            if ( (Board.mtCounter) % 3 == 0 ){
                 System.out.println("Mountain needs to move");
                 updateMountain();
                 board.mtLocation();
-                
             }
-            
            
             
             //press enter to continue
             System.out.println("Press enter to continue");
-            try{
+            try {
                 System.in.read();
             }
-            catch(Exception e) {
+            catch (Exception e) {
                 //do nothing
             }
             System.out.println("Press enter to continue");
@@ -133,15 +123,9 @@ public class MarvinThread extends PlayerThread {
                 System.out.println(threadName + " is the winner! WOW!");
                 setPlayerAsWinner();
                 board.setWinner(threadName);
-                
             }
-            
-            
         }
-    
     }
-    
-
     
     
     //Used when marvin steps on another player's square.
@@ -164,12 +148,6 @@ public class MarvinThread extends PlayerThread {
         }
     }
     
-    //Allows marvin to move the mountain to a random open square.
-    public void moveMountain() {
-        
-        
-    }
-    
     
     //Method that handles moving players around
     private void moveMarvinToThatSpace(int[] currentSpace, int[] wayToGo) throws InterruptedException {
@@ -188,6 +166,4 @@ public class MarvinThread extends PlayerThread {
         //remove any other players
         killOtherPlayer( wayToGo[0], wayToGo[1] );
     }
-    
 }
-

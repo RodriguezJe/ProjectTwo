@@ -269,6 +269,11 @@ public class Board {
 
        }
    }
+   
+   
+   public String getNameOfWinner() {
+       return nameOfWinner;
+   }
        
 
 

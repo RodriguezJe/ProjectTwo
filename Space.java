@@ -130,22 +130,22 @@ public class Space {
         return outputString;
     }
     
+    
     public boolean isThisSpaceOccupiedByPlayer(){
-        
         return isBugsHere || isTweetyHere || isTazDevilHere || isMarvinHere;
     }
     
+    
     public boolean isThisSpaceOccupiedByAnything() {
-        
         return isThisSpaceOccupiedByPlayer() || isCarrotHere || isMountainHere;
     }
-    
-    
     
     
     public boolean getIsBugsHere() {
         return isBugsHere;
     }
+    
+    
     public void setIsBugsHere(boolean b) {
         isBugsHere = b;
     }
@@ -154,6 +154,8 @@ public class Space {
     public boolean getIsTweetyHere() {
         return isTweetyHere;
     }
+    
+    
     public void setIsTweetyHere(boolean b) {
         isTweetyHere = b;
     }
@@ -162,6 +164,8 @@ public class Space {
     public boolean getIsTazDevilHere() {
         return isTazDevilHere;
     }
+    
+    
     public void setIsTazDevilHere(boolean b) {
         isTazDevilHere = b;
     }
@@ -170,6 +174,8 @@ public class Space {
     public boolean getIsMarvinHere() {
         return isMarvinHere;
     }
+    
+    
     public void setIsMarvinHere(boolean b) {
         isMarvinHere = b;
     }
@@ -178,6 +184,8 @@ public class Space {
     public boolean getIsMountainHere() {
         return isMountainHere;
     }
+    
+    
     public void setIsMountainHere(boolean b) {
         isMountainHere = b;
     }
@@ -186,6 +194,8 @@ public class Space {
     public boolean getIsCarrotHere() {
         return isCarrotHere;
     }
+    
+    
     public void setIsCarrotHere(boolean b) {
         isCarrotHere = b;
     }
