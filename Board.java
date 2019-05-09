@@ -227,7 +227,7 @@ public class Board {
             
             return false;
         }
-        if ( (proposedRow >= ROWS) || (proposedCol >= COLUMNS)  ) {
+        else if ( (proposedRow >= ROWS) || (proposedCol >= COLUMNS)  ) {
             
             return false;
         }
@@ -241,7 +241,7 @@ public class Board {
         }
         else {
             
-            return true; //no players and no mountain. hasCarrot disregarded.
+            return true; //no mountain. hasCarrot disregarded.
         }
     }
     

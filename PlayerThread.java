@@ -58,25 +58,6 @@ public class PlayerThread implements Runnable {
                 System.out.print(e.toString() + "A weird exception happened.");
             }
         }
-        
-        //not sure how to make this work? Pass the threads into this method?
-                //use public getThreadID method.
-        //Interrupt the other threads.
-        if (threadName.equals("Bugs") ) {
-            //interrupt tweety TazDevil and Marvin
-            //~ TazDevil.interrupt();
-        }
-        else if (threadName.equals("Tweety") ) {
-            //interrupt Bugs, TazDevil, Marvin
-            //~ tazDevilThread.interrupt();
-        }
-        else if (threadName.equals("TazDevil") ) {
-            //interrupt Bugs, Tweety, Marvin
-        }
-        else if (threadName.equals("Marvin") ) {
-            //interrupt Bugs, TazDevil, Tweety
-        }
-
     }
     
     

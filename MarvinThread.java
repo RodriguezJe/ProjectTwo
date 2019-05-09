@@ -14,6 +14,23 @@ public class MarvinThread extends PlayerThread {
         super(name, referenceToBoard);
     }
     
+    //override run() method
+    public void run() {
+        
+        while ( !isWinner ) {
+            try {
+                this.movePlayer(); // needs to throw an interrupt exception. based on a flag on board.
+                //Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                System.out.println(threadName + " has been interrupted!");
+                break;
+            } catch (Exception e) {
+                System.out.print(e.toString() + "A weird exception happened.");
+            }
+        }
+    }
+    
     //marvin has a special movePlayer method that will allow stepping on other players.
     private void movePlayer() throws InterruptedException {
         synchronized (board) {
@@ -128,19 +145,22 @@ public class MarvinThread extends PlayerThread {
     
     
     //Used when marvin steps on another player's square.
-    private void killOtherPlayer(int row, int col) {
+    private void killOtherPlayer(int row, int col) throws InterruptedException {
         //removes any other players from the space
         if ( board.board[row][col].getIsBugsHere() ) {
-            System.out.println("Marvin killed Bugs!");
+            System.out.println("Marvin killed Bugs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             board.board[row][col].removeOccupant("Bugs");
+            Thread.currentThread().sleep(5000);
         }
         if ( board.board[row][col].getIsTweetyHere() ) {
-            System.out.println("Marvin killed Tweety!");
+            System.out.println("Marvin killed Tweety!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             board.board[row][col].removeOccupant("Tweety");
+            Thread.currentThread().sleep(5000);
         }
         if ( board.board[row][col].getIsBugsHere() ) {
-            System.out.println("Marvin killed TazDevil!");
+            System.out.println("Marvin killed TazDevil!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             board.board[row][col].removeOccupant("TazDevil");
+            Thread.currentThread().sleep(5000);
         }
     }
     
@@ -152,7 +172,7 @@ public class MarvinThread extends PlayerThread {
     
     
     //Method that handles moving players around
-    private void moveMarvinToThatSpace(int[] currentSpace, int[] wayToGo) {
+    private void moveMarvinToThatSpace(int[] currentSpace, int[] wayToGo) throws InterruptedException {
         //  If have carrot, also move carrot.
         if ( hasCarrot ) {
             board.board[ currentSpace[0] ][ currentSpace[1] ].removeOccupant( "Carrot" );
