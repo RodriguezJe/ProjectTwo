@@ -55,7 +55,7 @@ public class PlayerThread implements Runnable {
                 System.out.println(threadName + " has been interrupted!");
                 break;
             } catch (Exception e) {
-                System.out.print(e.toString() + "A weird exception happened.");
+                System.out.print(e.toString() + ". A weird exception happened.");
             }
         }
     }
@@ -183,13 +183,13 @@ public class PlayerThread implements Runnable {
     
     public void updateMountain(){
         Random position= new Random();
-        int row = position.nextInt(9);
-        int column = position.nextInt(9);
+        int row = position.nextInt( board.getROWS() );
+        int column = position.nextInt( board.getCOLUMNS() );
                 
         while (board.board[row][column].isThisSpaceOccupiedByAnything()){
 
-            row = position.nextInt(9);
-            column = position.nextInt(9);
+            row = position.nextInt( board.getROWS() );
+            column = position.nextInt( board.getCOLUMNS() );
         }
         
         System.out.println("Updating mt");

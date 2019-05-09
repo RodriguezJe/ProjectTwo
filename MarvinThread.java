@@ -26,7 +26,7 @@ public class MarvinThread extends PlayerThread {
                 System.out.println(threadName + " has been interrupted!");
                 break;
             } catch (Exception e) {
-                System.out.print(e.toString() + "A weird exception happened.");
+                System.out.print(e.toString() + ". A weird exception happened.");
             }
         }
     }
@@ -150,17 +150,17 @@ public class MarvinThread extends PlayerThread {
         if ( board.board[row][col].getIsBugsHere() ) {
             System.out.println("Marvin killed Bugs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             board.board[row][col].removeOccupant("Bugs");
-            Thread.currentThread().sleep(5000);
+            //~ Thread.currentThread().sleep(5000);
         }
         if ( board.board[row][col].getIsTweetyHere() ) {
             System.out.println("Marvin killed Tweety!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             board.board[row][col].removeOccupant("Tweety");
-            Thread.currentThread().sleep(5000);
+            //~ Thread.currentThread().sleep(5000);
         }
         if ( board.board[row][col].getIsBugsHere() ) {
             System.out.println("Marvin killed TazDevil!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             board.board[row][col].removeOccupant("TazDevil");
-            Thread.currentThread().sleep(5000);
+            //~ Thread.currentThread().sleep(5000);
         }
     }
     

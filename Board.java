@@ -10,13 +10,13 @@ public class Board {
 
     //fields
     public Space[][] board; //Do not make private.
-    public static int mtCounter=0; //move mountain every three moves
+    public static int mtCounter = 0; //move mountain every three moves
     private boolean isThereAWinner = false;
     private String nameOfWinner = "";
     
     //Only make squares for now!
-    private final int ROWS = 9;
-    private final int COLUMNS = 9;
+    private final int ROWS = 10;
+    private final int COLUMNS = 10;
 
     private int mtRow;
     private int mtColumn;
