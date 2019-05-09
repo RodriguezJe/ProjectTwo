@@ -10,6 +10,7 @@ public class Board {
 
     //fields
     public Space[][] board; //Do not make private.
+    public static int mtCounter=0; //move mountain every three moves
     private boolean isThereAWinner = false;
     private String nameOfWinner = "";
     
@@ -36,6 +37,9 @@ public class Board {
         
         //place one mountain on the board. Board is empty so any random space will do.
         int[] mountainCoordinates = getRandomEmptySpaceCoordinates();
+        mtRow=mountainCoordinates[0];
+        mtColumn=mountainCoordinates[1];
+ 
         board[ mountainCoordinates[0] ][ mountainCoordinates[1] ].setOccupant("Mountain");
         
         //Place two carrots on the board. Checking if something is in that space already.
@@ -91,8 +95,18 @@ public class Board {
 
 
     public void mtLocation() {
-        System.out.println("\nThe mountain has moved to row " + mtColumn + " column " + mtRow);
+        System.out.println("\nThe mountain starts at row " + mtColumn + " column " + mtRow);
     }
+    
+    public void newMt(int row, int column){
+		mtRow=row;
+		mtColumn=column;
+		System.out.println("\nThe mountain has moved to row " + mtColumn + " column " + mtRow);
+		
+		
+	}
+    
+    
 
     public void setCarrot(int row, int column) {
 
@@ -218,19 +232,20 @@ public class Board {
     //~ }
 
     //will be needed when we move player to remove previous mark 
-    //~ public void removeMark(String name) {
+     public void removeMt() {
 
-        //~ for (int i = 0; i < ROWS; i++) {
-            //~ for (int j = 0; j < COLUMNS; j++) {
-                //~ if (board[i][j].getName().equals(name)) {
-                    //~ board[i][j].setAsOpen();
-                //~ }
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                if (board[i][j].getIsMountainHere()) {
+                    board[i][j].removeOccupant("Mountain");
+                }
 
-            //~ }
+           }
 
-        //~ }
+       }
+   }
+       
 
-    //~ }
 
 //Maybe move isValidMove to player Threads Class. Marvin will need an overriden method.
 

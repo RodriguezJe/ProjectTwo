@@ -22,7 +22,7 @@ public class MountainRace {
 
     String nameOfTheWinner = Play();
         
-    System.out.println( nameOfTheWinner + "WINS!");
+    //System.out.println( nameOfTheWinner);
     
     //print grid state
                 
@@ -36,6 +36,7 @@ public class MountainRace {
         //Create Game Board
         //Currently infinite looping
         Board gameBoard = new Board();
+        gameBoard.mtLocation();
         
 
         PlayerThread bugsBunnyObject = new PlayerThread("Bugs", gameBoard);
@@ -57,7 +58,7 @@ public class MountainRace {
         bugsThread.start();
         tazDevilThread.start();
         tweetyThread.start();
-        marvinThread.start();
+        //marvinThread.start();
         
         //wait for threads to complete
         
@@ -74,9 +75,9 @@ public class MountainRace {
         //check to see which player has a winner flag.
         //return the winner's name.
         
-        System.out.println("Final State of board:");
-        gameBoard.printBoard();
-        System.out.println("The winner is: ");
+        //System.out.println("Final State of board:");
+        //gameBoard.printBoard();
+        //System.out.println("The winner is: ");
         
         String nameOfWinner = "testing!";
         return nameOfWinner;

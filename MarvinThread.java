@@ -5,7 +5,7 @@
  * 
  */
 
-
+import java.util.Random;
 public class MarvinThread extends PlayerThread {
     
     //marvin has a special movePlayer method that will allow stepping on other players.
@@ -30,8 +30,10 @@ public class MarvinThread extends PlayerThread {
     }
     
     //Allows marvin to move the mountain to a random open square.
-    private void moveMountain() {
+    public void moveMountain() {
+		
         
     }
+    
 }
 
