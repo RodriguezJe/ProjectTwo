@@ -16,7 +16,7 @@ public class Board {
     
     //Only make squares for now!
     private final int ROWS = 10;
-    private final int COLUMNS = 10;
+    private final int COLUMNS = ROWS;
 
     private int mtRow;
     private int mtColumn;
@@ -39,7 +39,6 @@ public class Board {
         int[] mountainCoordinates = getRandomEmptySpaceCoordinates();
         mtRow=mountainCoordinates[0];
         mtColumn=mountainCoordinates[1];
- 
         board[ mountainCoordinates[0] ][ mountainCoordinates[1] ].setOccupant("Mountain");
         
         //Place two carrots on the board. Checking if something is in that space already.
@@ -69,27 +68,19 @@ public class Board {
         
     }
     
+    
     //Returns the row/column numbers for an empty square in the grid.
-    //returns -1, -1 if error.
     private int[] getRandomEmptySpaceCoordinates() {
-        //~ int returnRow = -1;
-        //~ int returnColumn = -1;
         
         Random randObj = new Random();
         int tempRow;
         int tempColumn;
         
-        //int counter = 0;
-        //while ( counter < Integer.MAX_VALUE && !board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() ) {
         do {
             tempRow = randObj.nextInt(ROWS);
             tempColumn = randObj.nextInt(COLUMNS);
-            //counter++;
         } while ( board[tempRow][tempColumn].isThisSpaceOccupiedByAnything() );
-        //~ returnRow = tempRow;
-        //~ returnColumn = tempColumn;
         
-        //~ return new int[] {returnRow, returnColumn};
         return new int[] {tempRow, tempColumn};
     }
 
@@ -98,53 +89,42 @@ public class Board {
         System.out.println("The mountain starts at row " + mtColumn + " column " + mtRow);
     }
     
+    
     public void newMt(int row, int column){
         mtRow=row;
         mtColumn=column;
         System.out.println("\nThe mountain has moved to row " + mtColumn + " column " + mtRow);
-        
-        
     }
-    
     
 
     public void setCarrot(int row, int column) {
-
         carrotRow = row;
         carrotColumn = column;
-
     }
 
-    public void setWinner(String winnerName) {
 
+    public void setWinner(String winnerName) {
         isThereAWinner = true;
         nameOfWinner = winnerName;
-        
-
     }
 
     
     public boolean isGameOver() {
-        //check if a player is on the mountain and has a carrot.
-        
         return isThereAWinner;
     }
     
+    
     public boolean getIsThereAWinner() {
-        
         return isThereAWinner;
     }
+    
     
     public void setIsThereAWinner(boolean b) {
         isThereAWinner = b;
     }
 
-    //~ public String displayWinner() {
-
-        //~ return board[mtRow][mtColumn].getName();
-    //~ }
     
-    //call to see current content of grid 
+    //call to see current content of board 
     public void printBoard() {
 
         for (int i = 0; i < ROWS; i++) {
@@ -160,34 +140,14 @@ public class Board {
 
     }
     
+    
     public int getROWS() {
         return ROWS;
     }
     
+    
     public int getCOLUMNS() {
         return COLUMNS;
-    }
-    
-    
-    //this thing is probably not needed now that board is public.
-    public Space[][] getBoard() {
-        
-        Space[][] copy = new Space[ROWS][COLUMNS];
-        
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                copy[i][j].setRow( board[i][j].getRow() );
-                copy[i][j].setColumn( board[i][j].getColumn() );
-                copy[i][j].setIsBugsHere( board[i][j].getIsBugsHere() );
-                copy[i][j].setIsTazDevilHere( board[i][j].getIsTazDevilHere() );
-                copy[i][j].setIsTweetyHere( board[i][j].getIsTweetyHere() );
-                copy[i][j].setIsMarvinHere( board[i][j].getIsMarvinHere() );
-                copy[i][j].setIsCarrotHere( board[i][j].getIsCarrotHere() );
-                copy[i][j].setIsMountainHere( board[i][j].getIsMountainHere() );
-            }
-        }
-        
-        return copy; // copy of board using arraycopy
     }
     
     
@@ -220,6 +180,7 @@ public class Board {
         }
     }
     
+    
     //Marvin version of canPlayerMoveHere
     public boolean canMarvinMoveHere (int proposedRow, int proposedCol, boolean doIHaveCarrot) {
         
@@ -244,29 +205,16 @@ public class Board {
             return true; //no mountain. hasCarrot disregarded.
         }
     }
-    
-    //call to place or move players in grid 
-    //~ public void markGrid(int row, int column, String name) {
 
-        //~ if (!validMove(row, column)) {
-            //~ removeMark(name);
-            //~ board[row][column].setIsOccupied(name);
-
-        //~ }
-
-    //~ }
 
     //will be needed when we move player to remove previous mark 
      public void removeMt() {
-
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 if (board[i][j].getIsMountainHere()) {
                     board[i][j].removeOccupant("Mountain");
                 }
-
            }
-
        }
    }
    
@@ -274,19 +222,4 @@ public class Board {
    public String getNameOfWinner() {
        return nameOfWinner;
    }
-       
-
-
-//Maybe move isValidMove to player Threads Class. Marvin will need an overriden method.
-
-    //~ public boolean isValidMove(int row, int column) {
-
-        //~ if (row == mtRow && column == mtColumn) {
-            //~ setWinner();
-            //~ return false;
-        //~ }
-
-        //~ return board[row][column].getIsOccupied();
-
-    //~ }
 }
